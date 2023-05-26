@@ -17,10 +17,17 @@ AC_CHECK_FUNCS(getopt_long)
 
 PKG_CHECK_MODULES([LIBNL3], [libnl-3.0], [], [AC_MSG_ERROR([libnl-3.0 is required])])
 PKG_CHECK_MODULES([LIBNLG3], [libnl-genl-3.0], [], [AC_MSG_ERROR([libnl-genl-3.0 is required])])
-PKG_CHECK_MODULES([READLINE], [readline], [], [AC_MSG_ERROR([libreadline is required])])
+#PKG_CHECK_MODULES([READLINE], [readline], [], [AC_MSG_ERROR([libreadline is required])])
 PKG_CHECK_MODULES([LIBPCAP], [libpcap], [], [
         AC_CHECK_LIB(pcap, pcap_open_live,[],
                 [AC_MSG_ERROR([libpcap is required])])])
+
+        AC_CHECK_HEADER([readline/readline.h],
+                [AC_CHECK_LIB(readline, readline, [
+                                AC_DEFINE(HAVE_READLINE, [],
+                                        [Is readline available?])
+                                LIBS="$LIBS -lreadline"
+                ], [])], [])
 
 AC_ARG_WITH([bfd],
 	[AS_HELP_STRING([--without-bfd], [Build without bfd library (default: yes)])],

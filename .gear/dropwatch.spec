@@ -5,18 +5,16 @@ Version: 1.2
 Release: alt1
 Summary: Dropwatch is a project I started in an effort to improve the ability for developers and system administrators to diagnose problems in the Linux Networking stack.
 License: GPLv2+
-Group: Applications/System
+Group: Other
 URL: https://github.com/radiobanka/dropwatch
-
-BuildArch: x86-64
 
 Requires: libnl, readline
 
 Source0: %name-%version.tar
 
-/BuildRequires: autoconf, automake, libtool
-BuildRequires: kernel-devel, libnl-devel, readline-devel
-BuildRequires: binutils-devel, binutils-static, pkgconfig
+#BuildRequires: autoconf, automake, libtool
+BuildRequires: kernel-devel, libnl-devel, readline-devel, libreadline-devel-static, libreadline-devel, libpcap-devel
+BuildRequires: binutils-devel, binutils, pkgconfig
 
 %description
 dropwatch is an utility to interface to the kernel to monitor for dropped
@@ -37,7 +35,7 @@ autoreconf -vi
 %_defattr
 %{_bindir}/*
 %{_mandir}/man1/*
-%doc README
+%doc README.md
 %doc COPYING
 
 %changelog
